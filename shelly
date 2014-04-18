@@ -1,0 +1,32 @@
+#! /bin/bash
+x=0
+y=0
+speed=6
+while [ true ];
+do
+read X Y Z</dev/ttyACM0
+if [ ! -z "$X" -a ! -z "$Y" -a ! -z "$Z" ];then
+	echo $X $Y $Z
+	
+	if [[ "$X" -ge 20 ]] ; then
+    	x=$speed; 
+		xdotool mousemove_relative -- $x 0  
+	fi       
+	if [[ "$X" -le -20 ]] ; then
+		x=-$speed;
+	 	xdotool mousemove_relative -- $x 0
+	fi
+	if [[ "$Y" -ge 20 ]] ; then
+			y=$speed; 
+			xdotool mousemove_relative -- 0 $y
+	fi
+	if [[ "$Y" -le -20 ]] ; then
+			y=-$speed;
+			xdotool mousemove_relative -- 0 $y
+	fi
+	if [[ "$Z" -ge 30 ]] ; then
+			xdotool click 1
+	fi
+fi
+#xdotool click 1
+done;
